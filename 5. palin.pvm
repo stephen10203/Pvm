@@ -1,0 +1,125 @@
+; g14m1190 - Siphamandla Mjoli
+; g15l2589 - Ernest Loveland
+; g13r0229 - stephen ritchie
+
+;variables:
+; int n,low,high,item
+; bool isPalindrome
+; int[]list
+; variable numbers: 
+;   n=0 
+;   low=1 
+;   high=2 
+;   item=3 
+;   isPalindrome=4 
+;   list=5
+;
+0 	DSP 6
+2 	LDA 5
+4 	LDC 10
+6 	ANEW
+7 	STO		; int [] list = new int [10];
+8 	LDA 0
+10	LDC 0
+12	STO		; n = 0;
+13	LDA 3
+15	INPI	; read(item);
+;
+16	LDA 3   ; load item
+18	LDV	    ; get items value
+19	LDC 0   ; load constant 0
+21	CNE     ; check not equal
+22	BZE 49	;  while (item != 0) { - BZE start of loop for condition
+;
+24  LDA 5   ; load list
+26	LDV		; load list position
+27	LDA 0	; load index
+29	LDV		; load index value
+30	LDXA	; get the place for list at index
+31	LDA	3	; load the input we put in
+33	LDV		; load the value
+34	STO		; list[n] = item;
+;
+35	LDA 0	; load n (memory index)
+;
+37	LDA 0   ; load n address
+39	LDV		; load value
+40	LDC 1	; 1
+42	ADD		; add 1 to value and store in n address
+;
+43	STO 	; n = n + 1; <-- error point
+;
+44	LDA 3
+46	INPI 	; read(item)
+;
+47	BRN 16 	; go to start of check for loop
+;
+49	LDA 4
+51	LDC 1
+53	STO 	; isPalindrome = true;  
+54	LDA 1
+56	LDC 0
+58	STO 	; low = 0;
+59	LDA 2
+61	LDA 0
+63	LDV
+64	LDC -1
+66	ADD
+67	STO 	; high = n - 1;   
+68	LDA 1   ; load low
+70	LDV     ; load lows value instead
+71	LDA 0   ; load n
+73	LDV		; load n's value
+74	LDC 1   ; load constant 1
+76	SUB		; subtract 1 from n
+77	CLT		; calculate true or false for less than 
+78	BZE 126 ; while (low < n - 1) {   
+;
+80	LDA 5 	; start load list[low]
+82	LDV
+83	LDA 1
+85	LDV
+86	LDXA
+87	LDV 	; end load list[low]
+88	LDA 5 	; start load list[high]
+90	LDV
+91	LDA 2
+93	LDV
+94	LDXA
+95	LDV 	; end load list[high]
+96	CNE 	; if (list[low] != list[high])
+;
+97	BZE 104
+;
+99	LDA 4
+101	LDC 0
+103	STO 	; isPalindrome = false; - TODO: move to 132
+104	LDA	1
+106	LDA 1
+108	LDV
+109	LDC 1
+111	ADD
+112	STO 	; low = low + 1;
+113	LDA	2
+115	LDA 2
+117	LDV
+118	LDC 1
+120	SUB
+121	STO 	; high = high - 1;
+122	LDA 2
+124	LDV
+125 LDC 0
+127	CEQ
+128	BZE 132 ; go to 135	LDA	4 - if statement after loop
+;
+130	BRN 68
+;
+132	LDA	4
+134	LDV
+;	
+135	BZE 140 ; if true, is this - or false, skip to false otherwise
+;	
+137	PRNS "Palindrome sequence"
+139	HALT
+140	PRNS "Non-palindromic sequence"
+142	HALT

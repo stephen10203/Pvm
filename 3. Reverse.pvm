@@ -1,0 +1,60 @@
+; Stephen Ritchie   - g13r0229
+; Siphamandla Mjoli - g14m1190
+; Ernest Loveland   - g15l2589
+   0   DSP      3   ;preparing space for 3 variables list=var 0,i=var 1, n=var 2
+   2   LDA      0	;load address of list
+   4   LDC      10	;puts 10 at top of stack, but doesnt store it since it is const  const max = 10;
+   6   ANEW			;initiates new array
+   7   STO			;allocate size of array at address(0)    int[] list = new int[max];
+   8   LDA      1	;load address for i			int i = 0
+  10   LDC      0	;set the number to 0		
+  12   STO			;store number 0 into address of i
+  13   LDA      2	;load address of n		int n
+  15   INPI			;prompt int value from user	read(n)
+  16   LDA      2	;load address of n	
+  18   LDV			;fetches value from n address
+  19   LDC      0	;load const 0
+  21   CNE			;	condition not equals				n != 0
+  22   LDA      1	;load address of i
+  24   LDV			;fetches value from i using address
+  25   LDC      10	;load max
+  27   CLT			;condition less than	i < max
+  28   AND			;and condition	 (n != 0) && (i < max))
+  29   BZE      56	;if false jump to the next while at label 56	  while (i > 0)
+  31   LDA      0	;if true:load address of list
+  33   LDV			;load list into memory
+  34   LDA      1	;load address of i
+  36   LDV			;gets value i
+  37   LDXA			;get address at subscript list[i] 
+  38   LDA      2	;load address of n 
+  40   LDV			;get value of n
+  41   STO 			;list[i] = n;
+  42   LDA      1   ; - where to store
+  44   LDA      1   ; - load the address
+  46   LDV          ; - load the value
+  47   LDC      1   ; - load constant 1
+  49   ADD          ; - add adds the last 2 values to "where to store" (i++)
+  50   STO			; i= i+1
+  51   LDA      2   ;load address of n
+  53   INPI         ;request int input from user  read(n);
+  54   BRN      16  ; go to start of while loop     while ((n != 0) && (i < max))
+  56   LDA      1   ;load address of i
+  58   LDV          ; load value of i
+  59   LDC      0   ;load constant 0
+  61   CGT          ;(i > 0)
+  62   BZE      84  ;if false branch to end of program
+  64   LDA      1   ; load address of i
+  66   LDA      1   ; load address of i
+  68   LDV          ;load value of i
+  69   LDC      1   ;load constant 1
+  71   SUB          ;i--;
+  72   STO          ;i= i+1
+  73   LDA      0   ;load address of list
+  75   LDV          ;load values of list
+  76   LDA      1   ;load address of i
+  78   LDV          ; load value of i
+  79   LDXA         ;get address of subscript list[i]
+  80   LDV          ;load value at list[i]
+  81   PRNI         ; print value       write(list[i]);
+  82   BRN      56  ; branch to loop start while (i > 0)
+  84   HALT          ;end of program

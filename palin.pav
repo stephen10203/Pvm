@@ -1,0 +1,32 @@
+void Main () {
+// Read a sequence of numbers and report whether they form a palindromic
+// sequence (one that reads the same from either end)
+// Examples:   1 2 3 4 3 2 1  is palindromic
+//             1 2 3 4 4 3 2  is non-palindromic
+// P.D. Terry, Rhodes University, 2015
+
+  int
+    n,                              // number of items
+    low, high,                      // indices of items to be compared
+    item;                           // latest item read
+  bool
+    isPalindrome;                   // Boolean flag
+  int [] list = new int [10];       // the list of items
+
+  n = 0;
+  read(item);
+  while (item != 0) {
+    list[n] = item;
+    n = n + 1;
+    read(item);
+  }
+  isPalindrome = true;              // optimist
+  low = 0; high = n - 1;            // initial indices
+  while (low < n - 1) {             // sweep through the list
+    if (list[low] != list[high])
+      isPalindrome = false;         // bad luck
+    low = low + 1; high = high - 1; // adjust indices
+  }
+  if (isPalindrome) write("Palindromic sequence");
+  else write("Non-palindromic sequence");
+} // Main

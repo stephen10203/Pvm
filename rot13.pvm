@@ -1,0 +1,75 @@
+; g14m1190 - Siphamandla Mjoli
+; g15l2589 - Ernest Loveland
+; g13r0229 - stephen ritchie
+
+0	DSP 1	
+;   0 = char ch (used as number for int and dec)
+
+; inc and dec tests
+2	LDA 0			
+4	LDC	5
+6	STO
+7	LDA 0
+9	LDA 0
+11	LDV
+12	DEC
+13	STO
+14	LDA 0   		
+16	LDV
+17	PRNI    		
+18	LDA 0
+20	LDV
+21	INC
+22	PRNI
+23	PRNS "\n\n"
+
+; start of logic
+;  - it steps back to here until we input '.' to end
+25	LDA 0			; start of loop
+27	INPC			; read a character from the user 	
+
+28	LDA	0			; load char memory pos 		- stack = pos
+30	LDA 0			; load char memory pos 		- stack = pos, pos
+32	LDV				; load char value 			- stack = pos, val
+33	LOW				; make the value on top low - stack = pos, lower val
+34	STO				; put lower value into pos  - stack = 
+35	LDA 0			; we need the pos of the lower char for the if
+37	LDV				;  - but the value			- stack = value
+38	ISLET			; checks value				- stack = true/false if (isLetter(ch)) 
+39  BZE 89
+41  LDA 0 
+43  LDA 0
+45  LDV
+45  LDC 97
+48  SUB     ;ch - 'a'
+49  STO 
+50  LDA 0
+52  LDA 0
+54  LDV 
+55  LDC 13
+57  ADD    ;(ch - 'a' + 13)
+58  STO
+59  LDA 0
+61  LDA 0
+63  LDV 
+64  LDC 26 
+66  REM
+67  STO  ;(ch - 'a' + 13) % 26
+68  LDA 0
+70  LDA 0
+72  LDV
+73  LDC 97 
+75  ADD
+76  STO  ; ('a' + (ch - 'a' + 13) % 26) 
+77  LDA 0
+79  LDV  
+80  PRNC   ; write(ch);
+81  LDA 0
+83  LDV
+84  LDC 85 
+86  CEQ ; (ch == '.');
+87  BZE 25
+89	HALT
+
+
+  

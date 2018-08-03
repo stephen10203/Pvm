@@ -1,0 +1,88 @@
+; g14m1190 - Siphamandla Mjoli
+; g15l2589 - Ernest Loveland
+; g13r0229 - stephen ritchie
+
+0	DSP 6	;n=0,low=1,high=2,ch=3,isPalindrome=4,char[] str=5
+2	LDA 5
+4	LDC 100
+6	ANEW
+7	STO		; char [] str = new char [100]; 
+8	LDA 0
+10	LDC 0
+12	STO		;n=0
+13	LDA 3
+15	INPC	;read(ch) ;@D
+16	LDC 46	;'.'
+18	CNE			; while (ch != '.') { 
+19	BZE 49  ;@A
+21	LDA 3
+23	LDV	  
+24	LDC 32		;' '
+26	CGT		;if (ch > ' ') {  
+27	BZE 46  ;@B
+29	LDA 3
+31	LDA 3
+33	LDV
+34	LOW	  
+35	STO
+36	LDA 5
+38	LDV
+39	LDA 0
+41	LDV
+42	LDXA
+43	LDA 3	
+45	LDV	 
+46	STO		;str[n] = lower(ch)	
+47	LDA 0
+49	INC		;n++
+50	INPC	;@B
+51	BRN	15  ;@D	while (ch != '.') { loop end
+53	LDA 4	;@A
+55	LDC 1
+57	lDV		; isPalindrome = true; 
+58	lDA 1
+60	LDC 0
+62	STO	 	;low = 0
+63	LDA 2	
+65	LDA 0
+67	LDV		
+68	LDC 1
+70	SUB		
+71	STO		;high = n - 1;   
+72	LDA 1	; while (low < n - 1) {   
+74	LDV
+75	LDA 0
+77	LDC 1
+79	SUB
+80	CLT	    ;@E
+81	BZE 111  ;@C	; if (str[low] != str[high]) 
+83	LDA 5	;str[low] 
+85	LDV
+86	LDA 1
+88	LDV
+89	LDXA
+90	LDV
+91	LDA 5	;str[high] 
+93	LDV
+94	LDA 2
+96	LDV
+97	LDXA
+98	LDV
+99	CNE
+100	BZE 103  ;@Z
+102	LDA 4		 ;isPalindrome = false;   
+104	LDC 0
+106	STO
+107	LDA 1	;@Z
+109	INC			; low++; 
+110	LDA 2
+112	DEC			; high--; 
+113	BRN	76  ;@E		 while (low < n - 1) {  loop end
+115	LDA 4	;@C		if (isPalindrome) write("Palindromic string")
+117	LDV				
+118	BZE 120 ;@Y
+120	PRNS "Palindromic String"
+122	BRN	122	;@ X
+124	PRNS "Non-palindromic string"  ;@Y		else write("Non-palindromic string"); 
+126	HALT	;@X
+	

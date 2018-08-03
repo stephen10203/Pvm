@@ -1,0 +1,100 @@
+;variables:
+; int n,low,high,item
+; bool isPalindrome
+; int[]list
+; variable numbers: 
+;   n=0 
+;   low=1 
+;   high=2 
+;   item=3 
+;   isPalindrome=4 
+;   list=5
+
+0 DSP 6 ;Setup space for all variables 6 in our case
+2 LDA 5
+4 LDC 10
+5 ANEW ;allocate storage space
+6 STO ;Store new list with its length at postion list[0]
+7 LDA 0
+9 LDC 0
+11 STO
+12 LDA 3
+14 INPI  ;READ INPUT FROM USER
+15 LDA 3 ;LOAD ADDRESS OF VALUE INSERTED BY USER *START OF LOOP*
+17 LDV   ;LOAD VALUE ITEM
+19 BZE 45  ;IF TOS OF STACK IS EQUAL TO 0 (item != 0)
+21 LDA 5 ;LOAD ADDRESS OF LIST
+22 LDV   ;LOAD VALUES IN LIST 
+23 LDA 0
+25 LDV 
+26 LDXA ;CALCULATE ADDRESS OF SUBSCRIPT list[n]
+28 LDA 3 ;LOAD ADDRESS OF ITEM
+29 LDV   ;LOAD VALUE OF ITEM
+30 STO   ;list[n] =item
+32 LDA 0
+34 LDA 0
+35 LDV 
+37 LDC 1
+38 ADD  ;n+1
+39 STO  ;n=n+1
+40 LDA 3
+42 INPI
+43 BRN 15
+45 LDA 4  ;*IS PALINDROME*
+47 LDC 1  ; *LOAD VALUE TRUE*
+48 STO    ;isPalindrome=true
+50 LDA 1  ;LOAD ADDRESS OF LOW
+52 LDC 0  ;LOAD CONSTANT 0 ONTO STACK
+53 STO
+55 LDA 2 ;LOAD ADDRESS OF high
+57 LDA 0 ;LOAD ADDRESS OF N
+58 LDV   ;LOAD VALUE OF N
+60 LDC 1  ;LOAD CONSTANT 1
+61 SUB
+62 STO    ;high =n-1
+64 LDA 1
+65 LDV  ;LOAD VALUE low
+67 LDA 0 *START OF LOOP SECOND*
+69 LDV  ;LOAD VALUE OF N
+71 LDC 1
+72 SUB  ;n-1
+73 CLT  ;(low <n-1)  
+75 BZE 93  ;IF FALSE
+77 LDA 5 
+78 LDV   ;LOAD VALUES OF list
+80 LDA 1 
+81 LDV    ;LOAD VALUE OF low
+82 LDXA   ;calculate address of subscript list[low]
+83 LDV    ;LOAD VALUE AT list[low]
+85 LDA 5 
+86 LDV   ;LOAD VALUES OF list
+88 LDA 2 
+89 LDV    ;LOAD VALUE OF low
+90 LDXA   ;calculate address of subscript list[low]
+91 LDV    ;LOAD VALUE AT list[high]
+92 CNE    ;if(list[low] != list[high])
+94 BZE  103  ; IF NUMBER IS PALINDROME
+96 LDA 4  ;LOAD VALUE OF isPalindrome
+98 LDC 0  ;LOAD VALUE OF isPalindrome
+99 STO    ;isPalindrome=false
+101 BRN 67
+103 LDA 1
+105 LDA 1
+106 LDV
+108 LDC 1
+109 ADD
+110 STO  ;low = low +1
+112 LDA 2
+114 LDA 2
+115 LDV
+117 LDC 1
+118 SUB
+119 STO  ;high = high -1
+121 LDA 4   ;*if(isPalindrome)*
+122 LDV  ;LOAD VALUE OF isPalindrome
+124 BZE 130  ;if not Palindrome
+126 PRNS "Palindrome sequence"
+128 BRN HALT
+130 PRNS "Non-palindromic sequence"
+131 HALT
+

@@ -1,0 +1,13 @@
+void Main() {
+// rot13 encryption of a text terminated with a period
+// P.D. Terry, Rhodes University, 2015
+
+  char ch;
+  repeat {
+    read(ch);
+    ch = lower(ch);
+    if (isLetter(ch)) ch = (char) ('a' + (ch - 'a' + 13) % 26);
+    write(ch);
+  }
+  until (ch == '.');
+} // Main
